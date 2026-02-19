@@ -6,20 +6,104 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { email, maxValue, required } from "@/components/helper/Validator";
+import { ContactUsForm } from "@/types/form";
+import ApiHelper from "@/components/helper/ApiHelper";
+import FormInput from "@/components/formUI/formInput";
+import FormTextArea from "@/components/formUI/formTextArea";
 
 const Contact = () => {
   const { toast } = useToast();
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      toast({ title: "Please fill in all required fields", variant: "destructive" });
-      return;
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState<ContactUsForm>({
+    name: {
+      value: "",
+      error: "Name is required",
+      valid: false,
+      validator: [required, maxValue({ max: 50 })],
+      mxLength: 50
+    },
+    email: {
+      value: "",
+      error: "A Valid Email is required",
+      valid: false,
+      validator: [required, email, maxValue({ max: 100 })],
+      mxLength: 100
+    },
+    subject: {
+      value: "",
+      error: "The Subject is required",
+      valid: false,
+      validator: [required, maxValue({ max: 100 })],
+      mxLength: 100
+    },
+    message: {
+      value: "",
+      error: "Query is required",
+      valid: false,
+      validator: [required, maxValue({ max: 1000 })],
+      mxLength: 1000
+    },
+    phone: {
+      value: "",
+      error: "A Valid Phone Number is required",
+      valid: false,
+      validator: [required, maxValue({ max: 15 })],
+      mxLength: 15
     }
-    toast({ title: "Message sent!", description: "Thank you for reaching out. I'll get back to you soon." });
-    setForm({ name: "", email: "", subject: "", message: "" });
-  };
+  });
+
+  const onChangeHandler = (input: string | null, type: keyof ContactUsForm) => {
+    let value = input ?? "";
+    let valid = true;
+    for (let validator of form[type].validator) {
+      valid = valid && validator(value);
+    }
+    if (value.length > form[type].mxLength) {
+      return false;
+    }
+    setForm((prevState) => {
+      return {
+        ...prevState,
+        [type]: {
+          ...prevState[type],
+          value: value,
+          valid: valid,
+        },
+      };
+    });
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    let formValid = true;
+    for (let key in form) {
+      formValid = formValid && form[key].valid;
+    }
+    if (!formValid) {
+      return false;
+    }
+
+    const formData = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      subject: form.subject.value.trim(),
+      phone: form.phone.value.trim(),
+      message: form.message.value.trim()
+    }
+
+    const data = await ApiHelper.request({
+      endpoint: "api/contact-us",
+      method: "POST",
+      body: formData,
+      setLoading,
+    });
+      if (data.success && data.result?.message) {
+        toast({ title: "Message sent!", description: data.result.message });
+      }
+    }
 
   return (
     <div>
@@ -36,9 +120,9 @@ const Contact = () => {
             {/* Contact Info */}
             <div className="space-y-6">
               {[
-                { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
-                { icon: Mail, label: "Email", value: "info@civilpro.com" },
-                { icon: MapPin, label: "Office", value: "123 Engineering Ave, City, State 12345" },
+                { icon: Phone, label: "Phone", value: "07741304657" },
+                { icon: Mail, label: "Email", value: "thumbengineeringconstruction@yahoo.com" },
+                { icon: MapPin, label: "Office", value: "11 Marshstreet North, Dartford, DA1 5WF " },
               ].map((item) => (
                 <Card key={item.label}>
                   <CardContent className="flex items-start gap-4 pt-6">
@@ -59,23 +143,63 @@ const Contact = () => {
               <CardContent className="pt-6">
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name *</Label>
-                      <Input id="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" maxLength={100} />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email *</Label>
-                      <Input id="email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="your@email.com" maxLength={255} />
-                    </div>
+                  <FormInput
+                      value={form.name.value}
+                      mxLength={form.name.mxLength}
+                      onChange={onChangeHandler}
+                      type="name"
+                      submitted={submitted}
+                      valid={form.name.valid}
+                      error={form.name.error}
+                      placeHolder="Your name"
+                      label="Name"
+                    />
+                    <FormInput
+                      value={form.email.value}
+                      mxLength={form.email.mxLength}
+                      onChange={onChangeHandler}
+                      type="email"
+                      submitted={submitted}
+                      valid={form.email.valid}
+                      error={form.email.error}
+                      placeHolder="your@email.com"
+                      label="Email Address"
+                    />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input id="subject" value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} placeholder="Project inquiry" maxLength={200} />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message *</Label>
-                    <Textarea id="message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Tell me about your project..." rows={5} maxLength={1000} />
-                  </div>
+                  <FormInput
+                    value={form.phone.value}
+                    mxLength={form.phone.mxLength}
+                    onChange={onChangeHandler}
+                    type="phone"
+                    submitted={submitted}
+                    valid={form.phone.valid}
+                    error={form.phone.error}
+                    placeHolder="Phone number"
+                    label="Phone Number"
+                  />
+
+                  <FormInput
+                    value={form.subject.value}
+                    mxLength={form.subject.mxLength}
+                    onChange={onChangeHandler}
+                    type="subject"
+                    submitted={submitted}
+                    valid={form.subject.valid}
+                    error={form.phone.error}
+                    placeHolder="Subject of project inquiry"
+                    label="Subject"
+                  />
+                  <FormTextArea
+                    value={form.message.value}
+                    mxLength={form.message.mxLength}
+                    onChange={onChangeHandler}
+                    type="message"
+                    submitted={submitted}
+                    valid={form.message.valid}
+                    error={form.message.error}
+                    placeHolder={"Tell me about your project..."}
+                    label="Message"
+                  />
                   <Button type="submit" size="lg" className="w-full sm:w-auto">
                     <Send className="mr-2 h-4 w-4" /> Send Message
                   </Button>
