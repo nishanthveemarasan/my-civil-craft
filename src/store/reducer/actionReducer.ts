@@ -41,6 +41,21 @@ export const fetchServicesData = createAsyncThunk(
       if (!response.success) {
         return rejectWithValue("Failed to fetch service data");
       }
+      return response.result.data;
+  }
+);
+
+export const fetchProfileData = createAsyncThunk(
+  "service/fetchProfileData",
+  async (_, { rejectWithValue }) => {
+      const response = await ApiHelper.request({
+        endpoint: "api/pages/about",
+        method: "GET",
+      });
+
+      if (!response.success) {
+        return rejectWithValue("Failed to fetch account data");
+      }
       console.log(response.result.data);
       return response.result.data;
   }

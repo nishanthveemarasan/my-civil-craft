@@ -46,7 +46,6 @@ const Services = () => {
   ], (data, loading, error) => ({ list: data, loading, error }));
 
   const { list, loading, error } = useAppSelector(mapStateToProps);
-  console.log(list, loading, error);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchServicesData());
