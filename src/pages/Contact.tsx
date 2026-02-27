@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Phone, Mail, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { email, maxValue, required } from "@/components/helper/Validator";
@@ -102,7 +99,39 @@ const Contact = () => {
     });
       if (data.success && data.result?.message) {
         toast({ title: "Message sent!", description: data.result.message });
+        resetForm();
       }
+    }
+
+    const resetForm = () => {
+      setSubmitted(false);
+      setForm({
+        name:{
+          ...form.name,
+          value:"",
+          valid: false
+        },
+        email:{
+          ...form.email,
+          value:"",
+          valid: false
+        },
+        subject:{
+          ...form.subject,
+          value:"",
+          valid: false
+        },
+        phone:{
+          ...form.phone,
+          value:"",
+          valid: false
+        },
+        message:{
+          ...form.message,
+          value:"",
+          valid: false
+        }
+      });
     }
 
   return (
@@ -116,9 +145,9 @@ const Contact = () => {
 
       <section className="py-16">
         <div className="container">
-          <div className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
             {/* Contact Info */}
-            <div className="space-y-6">
+            <div className="lg:col-span-2 space-y-6">
               {[
                 { icon: Phone, label: "Phone", value: "07741304657" },
                 { icon: Mail, label: "Email", value: "thumbengineeringconstruction@yahoo.com" },
@@ -139,7 +168,7 @@ const Contact = () => {
             </div>
 
             {/* Form */}
-            <Card className="lg:col-span-2">
+            <Card className="lg:col-span-3">
               <CardContent className="pt-6">
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -200,8 +229,8 @@ const Contact = () => {
                     placeHolder={"Tell me about your project..."}
                     label="Message"
                   />
-                  <Button type="submit" size="lg" className="w-full sm:w-auto">
-                    <Send className="mr-2 h-4 w-4" /> Send Message
+                  <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={loading}>
+                    <Send className="mr-2 h-4 w-4" /> Send Message 
                   </Button>
                 </form>
               </CardContent>

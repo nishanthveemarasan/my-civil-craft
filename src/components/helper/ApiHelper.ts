@@ -31,13 +31,10 @@ class ApiHelper {
     try {
       const timestamp = Date.now().toString();
       const secret = import.meta.env.VITE_APP_SERVICE_KEY; // Your random string
-
-      // Create a signature of: method + endpoint + timestamp
-      // We do NOT send the secret, we use it to sign the string
       let dataToSign = `${method}${endpoint}${timestamp}`;
       const hash = CryptoJS.HmacSHA256(dataToSign, secret);
       const signature = hash.toString(CryptoJS.enc.Hex);
-      console.log("Generated Signature:", signature, timestamp);
+
       const result: AxiosResponse = await this.axiosInstance.request({
         url: endpoint,
         method,
@@ -48,12 +45,15 @@ class ApiHelper {
         },
         data: body
       });
+      console.log(result)
       return {
         success: true,
         result: result.data
       }
       
     } catch (e) {
+      console.log('inside  catch')
+      console.log(e.response)
       return {
         success: false,
       };
