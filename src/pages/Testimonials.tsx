@@ -5,6 +5,7 @@ import { fetchTestimonialData } from "@/store/reducer/actionReducer";
 import { useEffect } from "react";
 import TestimonialList from "@/components/TestimonialPage/TestimonialList";
 import Spinner from "@/components/ui/Spinner";
+import PageError from "@/components/Error/PageError";
 
 const Testimonials = () => {
   const mapStateToProps = createSelector([
@@ -21,7 +22,7 @@ const Testimonials = () => {
 
   return <>
   {loading && <Spinner className="h-screen" />}
-    {!loading && list && list.length > 0 && <><section className="bg-primary text-primary-foreground py-20">
+    {!loading && !error && list && list.length > 0 && <><section className="bg-primary text-primary-foreground py-20">
       <div className="container">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">Testimonials</h1>
         <p className="text-primary-foreground/80 text-lg max-w-2xl">What our clients say about working with us.</p>
@@ -35,6 +36,7 @@ const Testimonials = () => {
           </div>
         </div>
       </section></>}
+      {!loading && error && <PageError />}
   </>
 };
 

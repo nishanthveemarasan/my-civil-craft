@@ -11,36 +11,15 @@ import Education from "@/components/About/Education";
 import Background from "@/components/About/Background";
 import Skills from "@/components/About/Skills";
 import Spinner from "@/components/ui/Spinner";
-
-const specializations = [
-  { icon: Building2, title: "General Civil Engineering", desc: "Structural analysis, site development, and comprehensive engineering design." },
-  { icon: HardHat, title: "Construction Management", desc: "Project planning, scheduling, supervision, and quality assurance." },
-  { icon: Ruler, title: "Infrastructure", desc: "Roads, bridges, drainage, water supply, and public works." },
-  { icon: BarChart3, title: "Quantity Surveying", desc: "Bill of quantities, cost estimation, tendering, and contract management." },
-];
+import PageError from "@/components/Error/PageError";
 
 const stats = [
   { icon: Award, value: "15+", label: "Years Experience" },
-  { icon: Users, value: "200+", label: "Clients Served" },
-  { icon: Clock, value: "350+", label: "Projects Completed" },
+  { icon: Users, value: "50+", label: "Clients Served" },
+  { icon: Clock, value: "20+", label: "Projects Completed" },
   { icon: CheckCircle, value: "98%", label: "On-Time Delivery" },
 ];
 
-const experience = [
-  { period: "2018 – Present", role: "Senior Civil Engineer", company: "XYZ Engineering Consultants", desc: "Leading major infrastructure and construction management projects. Overseeing quantity surveying operations and mentoring junior engineers." },
-  { period: "2013 – 2018", role: "Project Engineer", company: "ABC Constructions", desc: "Managed residential and commercial construction projects. Coordinated with stakeholders and ensured compliance with engineering standards." },
-  { period: "2009 – 2013", role: "Junior Engineer", company: "Delta Infrastructure Ltd.", desc: "Assisted in road and bridge construction projects. Prepared engineering drawings and quantity estimates." },
-];
-
-const education = [
-  { period: "2005 – 2009", degree: "B.Eng Civil Engineering", institution: "University of Engineering & Technology", desc: "Graduated with honors. Specialized in structural engineering and project management." },
-];
-
-const skills = [
-  "Structural Analysis", "AutoCAD", "Project Management", "Cost Estimation",
-  "Site Supervision", "Contract Management", "Quality Control", "Risk Assessment",
-  "BIM Modeling", "Primavera P6", "MS Project", "Surveying",
-];
 
 const About = () => {
   const mapStateToProps = createSelector([
@@ -54,10 +33,9 @@ const About = () => {
   useEffect(() => {
     dispatch(fetchProfileData());
   }, [dispatch]);
-  console.log(data, loading, error);
   return <div>
     {loading && <Spinner className="h-screen" />}
-    {!loading && data && <>
+    {!loading && !error && data && <>
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About Me</h1>
@@ -89,6 +67,7 @@ const About = () => {
 
       <Skills list={data.skills} />
     </>}
+    {!loading && error && <PageError />}
 
   </div>
 };

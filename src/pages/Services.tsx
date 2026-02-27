@@ -10,6 +10,8 @@ import { fetchServicesData } from "@/store/reducer/actionReducer";
 import ServiceHeader from "@/components/ServicePage/ServiceHeader";
 import ServiceFooter from "@/components/ServicePage/ServiceFooter";
 import ServiceList from "@/components/ServicePage/ServiceList";
+import Spinner from "@/components/ui/Spinner";
+import PageError from "@/components/Error/PageError";
 
 const services = [
   {
@@ -51,13 +53,17 @@ const Services = () => {
     dispatch(fetchServicesData());
   }, [dispatch]);
   return (
-    <div>
-      <ServiceHeader />
+    <>
+      {loading && <Spinner className="h-screen" />}
+      {!loading && !error && list && <>
+        <ServiceHeader />
 
-      <ServiceList list={list} />
+        <ServiceList list={list} />
 
-      <ServiceFooter />
-    </div>
+        <ServiceFooter />
+      </>}
+      {!loading && error && <PageError />}
+    </>
   );
 };
 

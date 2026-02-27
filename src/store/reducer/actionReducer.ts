@@ -56,7 +56,21 @@ export const fetchProfileData = createAsyncThunk(
       if (!response.success) {
         return rejectWithValue("Failed to fetch account data");
       }
-      console.log(response.result.data);
+      return response.result.data;
+  }
+);
+
+export const fetchHomeData = createAsyncThunk(
+  "home/fetchHomeDate",
+  async (_, { rejectWithValue }) => {
+      const response = await ApiHelper.request({
+        endpoint: "api/pages/home",
+        method: "GET",
+      });
+
+      if (!response.success) {
+        return rejectWithValue("Failed to fetch account data");
+      }
       return response.result.data;
   }
 );

@@ -8,6 +8,7 @@ import ContactDetails from "@/components/ContactPage/ContactDetails";
 import { useEffect } from "react";
 import { fetchContactData } from "@/store/reducer/actionReducer";
 import Spinner from "@/components/ui/Spinner";
+import PageError from "@/components/Error/PageError";
 const Contact = () => {
   const mapStateToProps = createSelector([
     (state: RootState) => state.contactStore.data,
@@ -16,7 +17,6 @@ const Contact = () => {
   ], (data, loading, error) => ({ contact: data, loading, error }));
 
   const { contact, loading, error } = useAppSelector(mapStateToProps);
-  console.log(contact, loading, error);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchContactData());
@@ -26,7 +26,7 @@ const Contact = () => {
   return (
     <div>
       {loading && <Spinner className="className" />}
-      {!loading && contact && <><section className="bg-primary text-primary-foreground py-20">
+      {!loading && !error && contact && <><section className="bg-primary text-primary-foreground py-20">
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact</h1>
           <p className="text-primary-foreground/80 text-lg max-w-2xl">Have a project in mind? Let's discuss how I can help.</p>
@@ -48,6 +48,7 @@ const Contact = () => {
             </div>
           </div>
         </section></>}
+        {!loading && error && <PageError />}
     </div>
   );
 };

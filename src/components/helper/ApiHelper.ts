@@ -45,7 +45,6 @@ class ApiHelper {
         },
         data: body
       });
-      console.log(result)
       if(result.status === 200 && result.data?.success){
         return {
           success: true,
