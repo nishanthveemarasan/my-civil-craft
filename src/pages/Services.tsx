@@ -2,6 +2,14 @@ import { Building2, HardHat, Ruler, BarChart3, CheckCircle, ArrowRight } from "l
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { createSelector } from "@reduxjs/toolkit";
+import { RootState } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useEffect } from "react";
+import { fetchServicesData } from "@/store/reducer/actionReducer";
+import ServiceHeader from "@/components/ServicePage/ServiceHeader";
+import ServiceFooter from "@/components/ServicePage/ServiceFooter";
+import ServiceList from "@/components/ServicePage/ServiceList";
 
 const services = [
   {
@@ -31,61 +39,25 @@ const services = [
 ];
 
 const Services = () => {
+  const mapStateToProps = createSelector([
+    (state: RootState) => state.serviceStore.data,
+    (state: RootState) => state.serviceStore.loading,
+    (state: RootState) => state.serviceStore.error,
+  ], (data, loading, error) => ({ list: data, loading, error }));
+
+  const { list, loading, error } = useAppSelector(mapStateToProps);
+  console.log(list, loading, error);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchServicesData());
+  }, [dispatch]);
   return (
     <div>
-      {/* Hero */}
-      <section className="bg-primary py-20">
-        <div className="container text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Our Services</h1>
-          <p className="text-primary-foreground/80 max-w-2xl mx-auto text-lg">
-            Delivering professional civil engineering solutions with precision, quality, and over 15 years of industry experience.
-          </p>
-        </div>
-      </section>
+      <ServiceHeader />
 
-      {/* Services Grid */}
-      <section className="py-20">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-8">
-            {services.map((s) => (
-              <Card key={s.title} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                      <s.icon className="h-7 w-7 text-primary" />
-                    </div>
-                    <CardTitle className="text-xl">{s.title}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">{s.desc}</p>
-                  <ul className="space-y-2">
-                    {s.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-primary shrink-0" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServiceList list={list} />
 
-      {/* CTA */}
-      <section className="py-20 bg-muted">
-        <div className="container text-center">
-          <h2 className="text-3xl font-bold mb-4">Need Engineering Expertise?</h2>
-          <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-            Get in touch to discuss your project requirements and how we can help bring your vision to life.
-          </p>
-          <Button size="lg" asChild>
-            <Link to="/contact">Get a Consultation <ArrowRight className="ml-2 h-4 w-4" /></Link>
-          </Button>
-        </div>
-      </section>
+      <ServiceFooter />
     </div>
   );
 };

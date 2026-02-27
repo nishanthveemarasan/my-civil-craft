@@ -18,7 +18,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/thiva">
+      <BrowserRouter basename="/">
         <Layout>
           <Routes>
             <Route path="/" element={<Index />} />

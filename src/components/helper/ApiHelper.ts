@@ -46,14 +46,18 @@ class ApiHelper {
         data: body
       });
       console.log(result)
-      return {
-        success: true,
-        result: result.data
+      if(result.status === 200 && result.data?.success){
+        return {
+          success: true,
+          result: result.data
+        }
+      }else{
+        return {
+          success: false,
+        }
       }
       
     } catch (e) {
-      console.log('inside  catch')
-      console.log(e.response)
       return {
         success: false,
       };
