@@ -10,8 +10,13 @@ export interface TestimonialStoreData {
   error: boolean;
 }
 
+export interface serviceSliceData {
+  services: serviceData[] | [];
+  year_of_experience: number
+}
+
 export interface serviceStoreData {
-  data: serviceData[] | [];
+  data: serviceSliceData;
   loading: boolean;
   error: boolean;
 }
@@ -102,6 +107,7 @@ export interface homeData {
   services: serviceData[];
   content: homeContent;
   projects: projectData[];
+  year_of_experience: number
 }
 
 export interface homeStoreData {

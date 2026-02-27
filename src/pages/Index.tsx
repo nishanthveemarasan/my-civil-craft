@@ -64,7 +64,7 @@ const Index = () => {
     <>
       {loading && <Spinner className="h-screen" />}
       {!loading && !error && data && <>
-        <HomeHeader data={data.content} />
+        <HomeHeader data={data.content} year={data.year_of_experience} />
         <CarouselImages list={data.content.images} />
 
         <Services list={data.services} />

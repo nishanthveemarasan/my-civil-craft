@@ -39,7 +39,7 @@ const About = () => {
       <section className="bg-primary text-primary-foreground py-20">
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">About Me</h1>
-          <p className="text-primary-foreground/80 text-lg max-w-2xl">Passionate civil engineer with over 15+ years of experience delivering quality engineering solutions.</p>
+          <div className="text-primary-foreground/80 text-lg max-w-2xl" dangerouslySetInnerHTML={{__html:data.profile.bottom_line}}/>
         </div>
       </section>
 

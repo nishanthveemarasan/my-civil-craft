@@ -1,9 +1,9 @@
-import { serviceData, serviceStoreData, testimonialData, TestimonialStoreData } from "@/types/store";
+import { serviceSliceData, serviceStoreData} from "@/types/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchServicesData } from "../reducer/actionReducer";
 
 const intitalState: serviceStoreData = { 
-    data:[],
+    data:null,
     loading: false,
     error: false
 }
@@ -20,7 +20,7 @@ const serviceSlice = createSlice({
             state.loading = true;
             state.error = false;
         })
-        .addCase(fetchServicesData.fulfilled, (state, action: PayloadAction<serviceData[]>) => {
+        .addCase(fetchServicesData.fulfilled, (state, action: PayloadAction<serviceSliceData>) => {
             state.data = action.payload;
             state.loading = false;
             state.error = false;

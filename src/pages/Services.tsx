@@ -45,9 +45,9 @@ const Services = () => {
     (state: RootState) => state.serviceStore.data,
     (state: RootState) => state.serviceStore.loading,
     (state: RootState) => state.serviceStore.error,
-  ], (data, loading, error) => ({ list: data, loading, error }));
+  ], (data, loading, error) => ({  data, loading, error }));
 
-  const { list, loading, error } = useAppSelector(mapStateToProps);
+  const { data, loading, error } = useAppSelector(mapStateToProps);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchServicesData());
@@ -55,10 +55,10 @@ const Services = () => {
   return (
     <>
       {loading && <Spinner className="h-screen" />}
-      {!loading && !error && list && <>
-        <ServiceHeader />
+      {!loading && !error && data && <>
+        <ServiceHeader year={data.year_of_experience} />
 
-        <ServiceList list={list} />
+        <ServiceList list={data.services} />
 
         <ServiceFooter />
       </>}
