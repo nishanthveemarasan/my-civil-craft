@@ -13,32 +13,6 @@ import ServiceList from "@/components/ServicePage/ServiceList";
 import Spinner from "@/components/ui/Spinner";
 import PageError from "@/components/Error/PageError";
 
-const services = [
-  {
-    icon: Building2,
-    title: "General Civil Engineering",
-    desc: "Comprehensive civil engineering solutions covering structural analysis, site development, foundation design, and geotechnical assessments.",
-    features: ["Structural Design & Analysis", "Site Development Planning", "Foundation Engineering", "Geotechnical Assessments", "Environmental Compliance"],
-  },
-  {
-    icon: HardHat,
-    title: "Construction Management",
-    desc: "End-to-end project oversight ensuring every phase is delivered on time, within budget, and to the highest quality standards.",
-    features: ["Project Planning & Scheduling", "Cost Control & Budgeting", "Quality Assurance", "Risk Management", "Contractor Coordination"],
-  },
-  {
-    icon: Ruler,
-    title: "Infrastructure Development",
-    desc: "Planning, designing, and executing public and private infrastructure including roads, bridges, water systems, and utilities.",
-    features: ["Road & Highway Design", "Bridge Engineering", "Water Supply Systems", "Drainage & Sewerage", "Utility Infrastructure"],
-  },
-  {
-    icon: BarChart3,
-    title: "Quantity Surveying",
-    desc: "Accurate cost estimation, tendering, procurement management, and financial oversight throughout the project lifecycle.",
-    features: ["Cost Estimation & BOQ", "Tender Documentation", "Procurement Management", "Interim Valuations", "Final Account Settlement"],
-  },
-];
 
 const Services = () => {
   const mapStateToProps = createSelector([
@@ -68,3 +42,4 @@ const Services = () => {
 };
 
 export default Services;
+

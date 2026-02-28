@@ -1,4 +1,3 @@
-import { Phone, Mail, MapPin, Send } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@/store/store";
@@ -25,7 +24,7 @@ const Contact = () => {
 
   return (
     <div>
-      {loading && <Spinner className="className" />}
+      {/* {loading && <Spinner className="className" />}
       {!loading && !error && contact && <><section className="bg-primary text-primary-foreground py-20">
         <div className="container">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact</h1>
@@ -48,7 +47,8 @@ const Contact = () => {
             </div>
           </div>
         </section></>}
-        {!loading && error && <PageError />}
+        {!loading && error && <PageError />} */}
+         <ContactForm />
     </div>
   );
 };

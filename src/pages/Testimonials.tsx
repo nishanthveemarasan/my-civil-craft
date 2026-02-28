@@ -19,7 +19,7 @@ const Testimonials = () => {
   useEffect(() => {
     dispatch(fetchTestimonialData());
   }, [dispatch]);
-
+  console.log(list, loading, error);
   return <>
   {loading && <Spinner className="h-screen" />}
     {!loading && !error && list && list.length > 0 && <><section className="bg-primary text-primary-foreground py-20">

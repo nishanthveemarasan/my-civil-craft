@@ -160,7 +160,7 @@ const ContactForm = () => {
                     type="subject"
                     submitted={submitted}
                     valid={form.subject.valid}
-                    error={form.phone.error}
+                    error={form.subject.error}
                     placeHolder="Subject of project inquiry"
                     label="Subject"
                 />
@@ -175,7 +175,7 @@ const ContactForm = () => {
                     placeHolder={"Tell me about your project..."}
                     label="Message"
                 />
-                <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={loading}>
+                <Button role="button" type="submit" size="lg" className="w-full sm:w-auto" disabled={loading}>
                     <Send className="mr-2 h-4 w-4" /> Send Message
                 </Button>
             </form>
