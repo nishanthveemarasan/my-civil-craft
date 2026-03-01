@@ -6,8 +6,9 @@ const Footer = () => (
     <div className="container py-12 grid gap-8 md:grid-cols-3">
       <div>
         <div className="flex items-center gap-2 font-display text-xl font-bold mb-4">
-          <HardHat className="h-6 w-6" />
-          CivilPro
+          {/* <HardHat className="h-6 w-6" />
+          CivilPro */}
+          <img src="/images/main-logo.png" className="w-70 h-14"/>
         </div>
         <p className="text-sm opacity-80 leading-relaxed">
           Professional civil engineering services — from concept to completion. Delivering excellence in construction management, infrastructure, and quantity surveying.
