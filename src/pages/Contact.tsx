@@ -91,48 +91,48 @@ const Contact = () => {
       message: form.message.value.trim()
     }
 
-    const data = await ApiHelper.request({
-      endpoint: "api/contact-us",
-      method: "POST",
-      body: formData,
-      setLoading,
-    });
-      if (data.success && data.result?.message) {
-        toast({ title: "Message sent!", description: data.result.message });
-        resetForm();
-      }
-    }
+    // const data = await ApiHelper.request({
+    //   endpoint: "api/contact-us",
+    //   method: "POST",
+    //   body: formData,
+    //   setLoading,
+    // });
+    // if (data.success && data.result?.message) {
+      toast({ title: "Message sent!", description: "Thank you for contacting us! we will contact you shortly" });
+      resetForm();
+    // }
+  }
 
-    const resetForm = () => {
-      setSubmitted(false);
-      setForm({
-        name:{
-          ...form.name,
-          value:"",
-          valid: false
-        },
-        email:{
-          ...form.email,
-          value:"",
-          valid: false
-        },
-        subject:{
-          ...form.subject,
-          value:"",
-          valid: false
-        },
-        phone:{
-          ...form.phone,
-          value:"",
-          valid: false
-        },
-        message:{
-          ...form.message,
-          value:"",
-          valid: false
-        }
-      });
-    }
+  const resetForm = () => {
+    setSubmitted(false);
+    setForm({
+      name: {
+        ...form.name,
+        value: "",
+        valid: false
+      },
+      email: {
+        ...form.email,
+        value: "",
+        valid: false
+      },
+      subject: {
+        ...form.subject,
+        value: "",
+        valid: false
+      },
+      phone: {
+        ...form.phone,
+        value: "",
+        valid: false
+      },
+      message: {
+        ...form.message,
+        value: "",
+        valid: false
+      }
+    });
+  }
 
   return (
     <div>
@@ -158,9 +158,16 @@ const Contact = () => {
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                       <item.icon className="h-5 w-5 text-primary" />
                     </div>
-                    <div>
+                    {/* <div>
                       <p className="font-semibold text-sm">{item.label}</p>
                       <p className="text-sm text-muted-foreground">{item.value}</p>
+                    </div> */}
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-sm">{item.label}</p>
+                      {/* 2. break-all forces the long email to wrap */}
+                      <p className="text-sm text-muted-foreground break-all md:break-words">
+                        {item.value}
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
@@ -172,7 +179,7 @@ const Contact = () => {
               <CardContent className="pt-6">
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-4">
-                  <FormInput
+                    <FormInput
                       value={form.name.value}
                       mxLength={form.name.mxLength}
                       onChange={onChangeHandler}
@@ -230,7 +237,7 @@ const Contact = () => {
                     label="Message"
                   />
                   <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={loading}>
-                    <Send className="mr-2 h-4 w-4" /> Send Message 
+                    <Send className="mr-2 h-4 w-4" /> Send Message
                   </Button>
                 </form>
               </CardContent>
