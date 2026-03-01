@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { email, maxValue, required } from "@/components/helper/Validator";
+import { email, maxValue, phone, required } from "@/components/helper/Validator";
 import { ContactUsForm } from "@/types/form";
 import ApiHelper from "@/components/helper/ApiHelper";
 import FormInput from "@/components/formUI/formInput";
@@ -46,7 +46,7 @@ const Contact = () => {
       value: "",
       error: "A Valid Phone Number is required",
       valid: false,
-      validator: [required, maxValue({ max: 15 })],
+      validator: [required, maxValue({ max: 15 }), phone],
       mxLength: 15
     }
   });
