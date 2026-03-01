@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, HardHat } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MainLogo from "@/assets/images/logos/main-logo.png";
 
 const navLinks = [
   { to: "/", label: "Home" },
+  { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
-  { to: "/resume", label: "Resume" },
   { to: "/testimonials", label: "Testimonials" },
   { to: "/contact", label: "Contact" },
 ];
@@ -19,8 +20,9 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
-          <HardHat className="h-6 w-6" />
-          <span>CivilPro</span>
+          {/* <HardHat className="h-6 w-6" />
+          <span>CivilPro</span> */}
+          <img src={MainLogo} className="w-32 h-10"/>
         </Link>
 
         {/* Desktop nav */}

@@ -3,6 +3,13 @@ import { Building2, HardHat, Ruler, BarChart3, ArrowRight, MapPin } from "lucide
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const services = [
@@ -10,6 +17,14 @@ const services = [
   { icon: HardHat, title: "Construction Management", desc: "End-to-end project oversight ensuring on-time, on-budget delivery." },
   { icon: Ruler, title: "Infrastructure", desc: "Roads, bridges, water systems, and public infrastructure planning and execution." },
   { icon: BarChart3, title: "Quantity Surveying", desc: "Accurate cost estimation, budgeting, and financial management for projects." },
+];
+
+const carouselImages = [
+  { src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=500&fit=crop", alt: "Construction site with crane", caption: "Large-Scale Construction" },
+  { src: "https://images.unsplash.com/photo-1545296664-39db56ad95bd?w=1200&h=500&fit=crop", alt: "Highway bridge", caption: "Highway Infrastructure" },
+  { src: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&h=500&fit=crop", alt: "Modern building", caption: "Commercial Development" },
+  { src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&h=500&fit=crop", alt: "Building under construction", caption: "Ongoing Projects" },
+  { src: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=500&fit=crop", alt: "Water treatment facility", caption: "Water Infrastructure" },
 ];
 
 const projects = [
@@ -51,8 +66,41 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Image Carousel */}
+      <section className="py-16 bg-muted">
+        <div className="container">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Work in Action</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">A glimpse into our ongoing and completed engineering projects.</p>
+          </div>
+          <div className="mx-auto max-w-5xl px-12">
+            <Carousel opts={{ loop: true }} className="w-full">
+              <CarouselContent>
+                {carouselImages.map((img) => (
+                  <CarouselItem key={img.alt}>
+                    <div className="relative overflow-hidden rounded-xl">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full aspect-[12/5] object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <p className="absolute bottom-4 left-6 text-lg font-semibold text-white">
+                        {img.caption}
+                      </p>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        </div>
+      </section>
+
       {/* Services */}
-      <section className="py-20 bg-muted">
+      <section className="py-20">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Areas of Expertise</h2>
@@ -71,11 +119,16 @@ const Index = () => {
               </Card>
             ))}
           </div>
+          <div className="text-center mt-8">
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/services">View All Services <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* Projects */}
-      <section className="py-20">
+      <section className="py-20 bg-muted">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Featured Projects</h2>

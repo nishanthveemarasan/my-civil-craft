@@ -1,5 +1,6 @@
-import { Building2, HardHat, Ruler, BarChart3, Award, Users, Clock, CheckCircle } from "lucide-react";
+import { Building2, HardHat, Ruler, BarChart3, Award, Users, Clock, CheckCircle, Briefcase, GraduationCap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const specializations = [
   { icon: Building2, title: "General Civil Engineering", desc: "Structural analysis, site development, and comprehensive engineering design." },
@@ -13,6 +14,22 @@ const stats = [
   { icon: Users, value: "200+", label: "Clients Served" },
   { icon: Clock, value: "350+", label: "Projects Completed" },
   { icon: CheckCircle, value: "98%", label: "On-Time Delivery" },
+];
+
+const experience = [
+  { period: "2018 – Present", role: "Senior Civil Engineer", company: "XYZ Engineering Consultants", desc: "Leading major infrastructure and construction management projects. Overseeing quantity surveying operations and mentoring junior engineers." },
+  { period: "2013 – 2018", role: "Project Engineer", company: "ABC Constructions", desc: "Managed residential and commercial construction projects. Coordinated with stakeholders and ensured compliance with engineering standards." },
+  { period: "2009 – 2013", role: "Junior Engineer", company: "Delta Infrastructure Ltd.", desc: "Assisted in road and bridge construction projects. Prepared engineering drawings and quantity estimates." },
+];
+
+const education = [
+  { period: "2005 – 2009", degree: "B.Eng Civil Engineering", institution: "University of Engineering & Technology", desc: "Graduated with honors. Specialized in structural engineering and project management." },
+];
+
+const skills = [
+  "Structural Analysis", "AutoCAD", "Project Management", "Cost Estimation",
+  "Site Supervision", "Contract Management", "Quality Control", "Risk Assessment",
+  "BIM Modeling", "Primavera P6", "MS Project", "Surveying",
 ];
 
 const About = () => (
@@ -69,6 +86,65 @@ const About = () => (
                 </div>
               </CardContent>
             </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Experience */}
+    <section className="py-16 bg-muted">
+      <div className="container max-w-4xl">
+        <div className="flex items-center gap-3 mb-8">
+          <Briefcase className="h-6 w-6 text-primary" />
+          <h2 className="text-3xl font-bold">Experience</h2>
+        </div>
+        <div className="space-y-6 border-l-2 border-primary/20 pl-6">
+          {experience.map((e) => (
+            <Card key={e.period}>
+              <CardContent className="pt-6">
+                <Badge variant="outline" className="mb-2">{e.period}</Badge>
+                <h3 className="font-display text-xl font-semibold">{e.role}</h3>
+                <p className="text-sm text-primary font-medium mb-2">{e.company}</p>
+                <p className="text-sm text-muted-foreground">{e.desc}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Education */}
+    <section className="py-16">
+      <div className="container max-w-4xl">
+        <div className="flex items-center gap-3 mb-8">
+          <GraduationCap className="h-6 w-6 text-primary" />
+          <h2 className="text-3xl font-bold">Education</h2>
+        </div>
+        <div className="border-l-2 border-primary/20 pl-6">
+          {education.map((e) => (
+            <Card key={e.period}>
+              <CardContent className="pt-6">
+                <Badge variant="outline" className="mb-2">{e.period}</Badge>
+                <h3 className="font-display text-xl font-semibold">{e.degree}</h3>
+                <p className="text-sm text-primary font-medium mb-2">{e.institution}</p>
+                <p className="text-sm text-muted-foreground">{e.desc}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Skills */}
+    <section className="py-16 bg-muted">
+      <div className="container max-w-4xl">
+        <div className="flex items-center gap-3 mb-8">
+          <Award className="h-6 w-6 text-primary" />
+          <h2 className="text-3xl font-bold">Skills</h2>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          {skills.map((s) => (
+            <Badge key={s} variant="secondary" className="text-sm py-1.5 px-4">{s}</Badge>
           ))}
         </div>
       </div>
