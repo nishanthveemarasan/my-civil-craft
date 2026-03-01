@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { email, maxValue, required } from "@/components/helper/Validator";
+import { email, maxValue, phone, required } from "@/components/helper/Validator";
 import FormInput from "@/components/formUI/formInput";
 import FormTextArea from "@/components/formUI/formTextArea";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ const ContactForm = () => {
             value: "",
             error: "A Valid Phone Number is required",
             valid: false,
-            validator: [required, maxValue({ max: 15 })],
+            validator: [required, maxValue({ max: 15 }),phone],
             mxLength: 15
         }
     });
