@@ -150,8 +150,8 @@ const Contact = () => {
             <div className="lg:col-span-2 space-y-6">
               {[
                 { icon: Phone, label: "Phone", value: "07741304657" },
-                { icon: Mail, label: "Email", value: "thumbengineeringconstruction@yahoo.com" },
-                { icon: MapPin, label: "Office", value: "11 Marshstreet North, Dartford, DA1 5WF " },
+                { icon: Mail, label: "Email", value: "thumbconstruction@yahoo.com" },
+                { icon: MapPin, label: "Office", value: "11 Marshstreet North, Dartford, DA2 5WF " },
               ].map((item) => (
                 <Card key={item.label}>
                   <CardContent className="flex items-start gap-4 pt-6">

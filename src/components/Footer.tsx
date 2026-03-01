@@ -1,14 +1,12 @@
 import { HardHat, Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import MainLogo from "@/assets/images/logos/main-logo.png";
 const Footer = () => (
   <footer className="border-t bg-primary text-primary-foreground">
     <div className="container py-12 grid gap-8 md:grid-cols-3">
       <div>
         <div className="flex items-center gap-2 font-display text-xl font-bold mb-4">
-          {/* <HardHat className="h-6 w-6" />
-          CivilPro */}
-          <img src="/images/main-logo.png" className="w-70 h-14"/>
+          <img src={MainLogo} className="w-70 h-14"/>
         </div>
         <p className="text-sm opacity-80 leading-relaxed">
           Professional civil engineering services — from concept to completion. Delivering excellence in construction management, infrastructure, and quantity surveying.
@@ -29,16 +27,16 @@ const Footer = () => (
       <div>
         <h4 className="font-display text-lg font-semibold mb-4">Get in Touch</h4>
         <div className="flex flex-col gap-3 text-sm opacity-80">
-          <div className="flex items-center gap-2"><Phone className="h-4 w-4" /> +1 (555) 123-4567</div>
-          <div className="flex items-center gap-2"><Mail className="h-4 w-4" /> info@civilpro.com</div>
-          <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> 123 Engineering Ave, City</div>
+          <div className="flex items-center gap-2"><Phone className="h-4 w-4" />07741304657</div>
+          <div className="flex items-center gap-2"><Mail className="h-4 w-4" /> thumbconstruction@yahoo.com</div>
+          <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> 11 Marshstreet North, Dartford, DA2 5WF </div>
         </div>
       </div>
     </div>
 
     <div className="border-t border-primary-foreground/20">
       <div className="container py-4 text-center text-xs opacity-60">
-        © {new Date().getFullYear()} CivilPro. All rights reserved.
+        © {new Date().getFullYear()} TTThumb. All rights reserved.
       </div>
     </div>
   </footer>
