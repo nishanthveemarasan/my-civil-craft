@@ -12,9 +12,11 @@ const ContactDetails = () => {
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                     <item.icon className="h-5 w-5 text-primary" />
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                     <p className="font-semibold text-sm">{item.label}</p>
-                    <p className="text-sm text-muted-foreground">{item.value}</p>
+                    <p className="text-sm text-muted-foreground break-all md:break-words">
+                        {item.value}
+                    </p>
                 </div>
 
             </MyCard>
