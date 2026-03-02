@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, AxiosInstance, AxiosRequestConfig, RawAxiosRequestHeaders} from "axios";
 import CryptoJS from "crypto-js";
+import { generateSignature } from "./signature";
 
 export type SetLoading = React.Dispatch<React.SetStateAction<boolean>>;
 export interface ApiRequestOptions {
@@ -29,19 +30,15 @@ class ApiHelper {
   }: ApiRequestOptions): Promise<any> {
     setLoading?.(true);
     try {
-      const timestamp = Date.now().toString();
-      const secret = import.meta.env.VITE_APP_SERVICE_KEY; // Your random string
-      let dataToSign = `${method}${endpoint}${timestamp}`;
-      const hash = CryptoJS.HmacSHA256(dataToSign, secret);
-      const signature = hash.toString(CryptoJS.enc.Hex);
+      const hash = generateSignature(method, endpoint);
 
       const result: AxiosResponse = await this.axiosInstance.request({
         url: endpoint,
         method,
         headers:{
           ...headers,
-          "X-Signature": signature,
-          "X-Timestamp": timestamp,
+          "X-Signature": hash.signature,
+          "X-Randomstring": hash.randomString,
         },
         data: body
       });

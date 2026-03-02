@@ -1,0 +1,5 @@
+VITE_FRONTEND_URL="http://url-to-frontend.com/"
+VITE_BACKEND_URL="http://url-to-backend.com/" 
+APP_PORT=port
+VITE_APP_SERVICE_KEY="some-service-key"
+VITE_APP_SUPPORT_EMAIL="some@send.gmal.com"
