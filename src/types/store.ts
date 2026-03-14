@@ -1,30 +1,40 @@
-export interface StoreData {
-  data: contactDetails | null;
+
+interface loadingData {
   loading: boolean;
   error: boolean;
 }
 
-export interface TestimonialStoreData {
-  data: testimonialData[] | [];
-  loading: boolean;
-  error: boolean;
+interface periodData{
+  from: number;
+  to: number | string;
+}
+export interface StoreData extends loadingData {
+  data: contactDetails | null;
+}
+
+
+
+export interface TestimonialStoreData extends loadingData {
+  data: testimonialSliceData | null;
+}
+
+export interface testimonialSliceData {
+  testimonials: testimonialData[] | [];
+  contact_info: contactDetails;
 }
 
 export interface serviceSliceData {
   services: serviceData[] | [];
-  year_of_experience: number
+  year_of_experience: number;
+  contact_info: contactDetails;
 }
 
-export interface serviceStoreData {
-  data: serviceSliceData;
-  loading: boolean;
-  error: boolean;
+export interface serviceStoreData extends loadingData {
+  data: serviceSliceData|null;
 }
 
-export interface profileStoreData {
+export interface profileStoreData extends loadingData {
   data: profileData | null;
-  loading: boolean;
-  error: boolean;
 }
 export interface contactDetails {
   email: string;
@@ -47,19 +57,15 @@ export interface serviceData {
   special_point?: string;
 }
 
-export interface experienceData {
+export interface experienceData extends periodData{
   company: string;
   role: string;
-  from: number;
-  to: number | string;
   description: string;
 }
 
-export interface educationData {
+export interface educationData extends periodData{
   course: string;
   institution: string;
-  from: number;
-  to: number | string;
   description: string;
 }
 
@@ -67,9 +73,10 @@ export interface skillData {
   name: string;
 }
 
-export interface personalInfo {
+export interface personalInfo extends Partial<contactDetails> {
   first_name: string;
   last_name: string;
+  qualification: string;
   biography: string;
   bottom_line: string;
   image: {
@@ -103,15 +110,16 @@ export interface projectData {
   image: imageData;
 }
 
+
+
 export interface homeData {
   services: serviceData[];
   content: homeContent;
   projects: projectData[];
-  year_of_experience: number
+  year_of_experience: number;
+  contact_info: contactDetails;
 }
 
-export interface homeStoreData {
+export interface homeStoreData extends loadingData {
   data: homeData | null;
-  loading: boolean;
-  error: boolean;
 }
